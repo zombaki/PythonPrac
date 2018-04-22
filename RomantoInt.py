@@ -5,7 +5,8 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        
+	for i in s[::-1]:
+		print i        
         
         if s=='':
             return 0
@@ -19,3 +20,6 @@ class Solution(object):
                 else:
                     sum+=self.maplocal[s[i]]
             return sum
+
+s=Solution()
+print s.romanToInt(raw_input("Enter Value"))
