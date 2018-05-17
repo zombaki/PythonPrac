@@ -17,7 +17,8 @@ self practice and training purpose
     LeetinverBinaryTree.py         LeetSubdomainVisit.py
     LeetislandPerimeter.py         LeetTrimBST.py       LeetJwel.py
 ### Folder Rest API :
-    This folder contains code for connecting and working with REST API 
+  
+  This folder contains code for connecting and working with REST API 
 with google maps and four square to fetch restraunt details based on location.
     
 
