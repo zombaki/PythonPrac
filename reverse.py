@@ -5,4 +5,4 @@ def reverse(text):
     result+=(text[leng-i])
   return result
 
-print reverse("asdc")
+print reverse("piyush atn")
