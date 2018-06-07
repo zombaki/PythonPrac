@@ -1,40 +1,61 @@
 def evaluate(lisp):
     stack=[]
-    st={}
-
-    def getval(x):
-        return d.get(x, x)
-
-    def evaluate(tokens):
-        if tokens[0] in ('+', '*','/','-'):
-            tmp = map(int, map(getval, tokens[1:]))
-            if tokens[0]=='+':
-                return str(tmp[0]+tmp[1])
-            elif tokens[0]=='-':
-                return str(tmp[0]-tmp[1])
-            elif tokens[0]=='*':
-                return str(tmp[0]*tmp[1])
+    st=[]
+    def evaluate(stack):
+ 	#print stack[0]
+	if stack[0] in ('+', '*','/','-'):
+            tmp = stack[1:]
+            if stack[0]=='+':
+                return str(int(tmp[0])+int(tmp[1]))
+            elif stack[0]=='-':
+                return str(int(tmp[0])-int(tmp[1]))
+            elif stack[0]=='*':
+                return str(int(tmp[0])*int(tmp[1]))
             else:
-                return str((tmp[0])/tmp[1])
-        elif tokens[0] == "'":
-            print tokens
-	    return getval(tokens[-1])
-
+                return str(int(tmp[0])/int(tmp[1]))
+        elif stack[0] == "'":
+	    print stack
+	    if ((stack[1])!=''):
+	    	return [int(x) for x in stack[1:]]
+	    else:
+		return []
+	elif stack[0] == "concat":
+            return ''.join(stack[1:]).replace('\"', '')
+    tmp=''
+    flgQt=False
+    if type(lisp) ==  int:
+	return int(lisp)
+    elif (type(lisp) ==  str and not '(' in lisp):
+	return lisp
+    elif lisp == '()':
+	return None
     for a in lisp:
         if a == '(':
-            st.append((tokens, ))
-            stack=  ['']
+	    st.append((stack))
+	    stack=  []
+	    if flgQt:
+		stack.append("'")
+		flgQt=False
         elif a == ' ':
-            tokens.append('')
+	    stack.append(tmp)
+	    tmp=''
+	    continue
+            # stack.append('')
         elif a == ')':
-            val = evaluate(tokens)
-            tokens, d = st.pop()
-            tokens[-1] += val
+	    stack.append(tmp)
+	    tmp=''
+            val = evaluate(stack)
+            stack = st.pop()
+	    #print val
+            stack.append(val)
+	elif a=="'":
+	    flgQt=True
         else:
-	    print tokens
-            tokens[-1] += a
-    return int(tokens[0])
+	    tmp+=a
+	    #print stack
+            #stack.append(a)
+    return (stack[0])
 
 
 
-print evaluate("'(6 2)")
+print evaluate("'()")
